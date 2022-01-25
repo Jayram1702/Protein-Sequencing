@@ -59,15 +59,22 @@ def makeCodonDictionary(filename):
             codondictnry[values] = key
     return codondictnry
 
-
 '''
 generateProtein(codons, codonD)
 #4 [Check6-1]
 Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
+
 def generateProtein(codons, codonD):
-    return
+    protnlst = []
+    for rna in codons:
+        for rnaproteins in codonD:
+            if rna == rnaproteins:
+                protnlst.append(codonD[rnaproteins])
+                if protnlst[0] == "Met":
+                    protnlst[0] = "Start"
+    return protnlst
 
 
 '''
@@ -212,6 +219,7 @@ if __name__ == "__main__":
     test.testReadFile()
     test.testDnaToRna()
     test.testMakeCodonDictionary()
+    test.testGenerateProtein()
 
     ## Uncomment these for Week 2 ##
     """
