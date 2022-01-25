@@ -17,8 +17,11 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
-
+    file = open(filename,"r").read()
+    stri = ""
+    for line in file.splitlines():
+        stri = stri+line
+    return stri
 
 '''
 dnaToRna(dna, startIndex)
@@ -190,6 +193,7 @@ if __name__ == "__main__":
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     runWeek1()
+    test.testReadFile()
 
     ## Uncomment these for Week 2 ##
     """
