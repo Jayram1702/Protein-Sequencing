@@ -4,6 +4,7 @@ Name:
 Roll Number:
 """
 
+from dataclasses import replace
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -17,8 +18,11 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
-
+    file = open(filename,"r").read()
+    stri = ""
+    for line in file.splitlines():
+        stri = stri+line
+    return stri
 
 '''
 dnaToRna(dna, startIndex)
@@ -27,9 +31,17 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
-
-
+    condonslst = []
+    var = ["UGA","UAG","UAA"]
+    for word in range(startIndex,len(dna),3):
+        dna = dna.replace("T","U")
+        condns = dna[word:word+3]
+        if condns not in var:
+            condonslst.append(condns)
+        else:
+            condonslst.append(condns)
+            break
+    return condonslst
 '''
 makeCodonDictionary(filename)
 #3 [Check6-1]
@@ -38,8 +50,14 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
-
+    file = open(filename,"r")
+    protns = json.load(file)
+    codondictnry= {}
+    for key in protns:
+        for values in protns[key]:
+            values = values.replace("T","U")
+            codondictnry[values] = key
+    return codondictnry
 
 '''
 generateProtein(codons, codonD)
@@ -47,8 +65,16 @@ generateProtein(codons, codonD)
 Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
+
 def generateProtein(codons, codonD):
-    return
+    protnlst = []
+    for rna in codons:
+        for rnaproteins in codonD:
+            if rna == rnaproteins:
+                protnlst.append(codonD[rnaproteins])
+                if protnlst[0] == "Met":
+                    protnlst[0] = "Start"
+    return protnlst
 
 
 '''
@@ -190,6 +216,10 @@ if __name__ == "__main__":
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     runWeek1()
+    test.testReadFile()
+    test.testDnaToRna()
+    test.testMakeCodonDictionary()
+    test.testGenerateProtein()
 
     ## Uncomment these for Week 2 ##
     """
