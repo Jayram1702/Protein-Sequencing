@@ -50,7 +50,14 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
+    file = open(filename,"r")
+    protns = json.load(file)
+    codondictnry= {}
+    for key in protns:
+        for values in protns[key]:
+            values = values.replace("T","U")
+            codondictnry[values] = key
+    return codondictnry
 
 
 '''
@@ -204,6 +211,7 @@ if __name__ == "__main__":
     runWeek1()
     test.testReadFile()
     test.testDnaToRna()
+    test.testMakeCodonDictionary()
 
     ## Uncomment these for Week 2 ##
     """
