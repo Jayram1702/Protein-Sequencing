@@ -215,6 +215,7 @@ def displayTextResults(commonalities, differences):
             lst1.sort()
     for k in lst1:
         strng += ' '+ k +"\n"
+    print(strng)
     print("The following amino acids occurred at very different rates in the two DNA sequences:")
     for a in differences:
         wrd = a[0]
@@ -315,7 +316,17 @@ Parameters: no parameters
 Returns: None
 '''
 def runFullProgram():
-    return
+    protns1 = synthesizeProteins("data/Human_p53.txt", "data/codon_table.json")
+    protns2 = synthesizeProteins("data/Elephant_p53.txt", "data/codon_table.json")
+    commonprotns = commonProteins(protns1, protns2)
+    amodiff = findAminoAcidDifferences(protns1,protns2,0.005)
+    displytext = displayTextResults(commonprotns, amodiff)
+    amolabels = makeAminoAcidLabels(protns1,protns2)
+    f1 = setupChartData(amolabels, protns1)
+    f2 = setupChartData(amolabels, protns2)
+    edges = makeEdgeList(amolabels, amodiff)
+    finalchart = createChart(amolabels, f1, 'Human', f2, 'Elephant', edgeList=edges)
+    return 
 
 
 ### RUN CODE ###
@@ -346,13 +357,13 @@ if __name__ == "__main__":
 
 
     ## Uncomment these for Week 3 ##
-    """
-    print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
-    test.week3Tests()
-    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+
+    # print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
+    # test.week3Tests()
+    # print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+    
     # test. testMakeAminoAcidLabels()
     # test.testSetupChartData()
     # test.testCreateChart()
-    test.testMakeEdgeList()
+    # test.testMakeEdgeList()
