@@ -5,6 +5,7 @@ Roll Number:
 """
 
 from dataclasses import replace
+from os import remove
 
 from matplotlib.cbook import file_requires_unicode
 import hw6_protein_tests as test
@@ -200,8 +201,27 @@ Parameters: 2D list of strs ; 2D list of values
 Returns: None
 '''
 def displayTextResults(commonalities, differences):
-    return
-
+    lst = []
+    lst1 = []
+    strng = ''
+    print("The following proteins occurred in both DNA Sequences:")
+    for i in commonalities:
+        if i not in lst:
+            lst.append(i[1:-1])
+    for j in lst:
+        if len(j) > 0:
+            j = '-'.join(j)
+            lst1.append(j)
+            lst1.sort()
+    for k in lst1:
+        strng += ' '+ k +"\n"
+    print("The following amino acids occurred at very different rates in the two DNA sequences:")
+    for a in differences:
+        wrd = a[0]
+        seq1 = round(a[1]*100,2)
+        seq2 = round(a[2]*100,2)
+        print(f"{wrd}:{seq1}% in Seq1, {seq2}% in seq2")
+    return 
 
 def runWeek2():
     humanProteins = synthesizeProteins("data/human_p53.txt", "data/codon_table.json")
@@ -280,16 +300,16 @@ if __name__ == "__main__":
     # test.testSynthesizeProteins()
 
     ## Uncomment these for Week 2 ##
-    """
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     runWeek2()
-    """
+
     # test.testCommonProteins()
     # test.testCombineProteins()
     # test.testAminoAcidDictionary()
-    test.testFindAminoAcidDifferences()
+    # test.testFindAminoAcidDifferences()
 
 
     ## Uncomment these for Week 3 ##
