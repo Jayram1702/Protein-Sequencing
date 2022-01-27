@@ -241,7 +241,13 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    labels = []
+    wrd = combineProteins(proteinList1) + combineProteins(proteinList2)
+    for i in wrd:
+        if i not in labels:
+            labels.append(i)
+    totallabels = sorted(labels)
+    return totallabels
 
 
 '''
@@ -251,6 +257,7 @@ Parameters: list of strs ; 2D list of strs
 Returns: list of floats
 '''
 def setupChartData(labels, proteinList):
+    
     return
 
 
@@ -304,7 +311,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     # test.week2Tests()
     # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # runWeek2()
 
     # test.testCommonProteins()
     # test.testCombineProteins()
@@ -319,3 +326,4 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
     """
+    test. testMakeAminoAcidLabels()
