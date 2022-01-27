@@ -5,6 +5,8 @@ Roll Number:
 """
 
 from dataclasses import replace
+
+from matplotlib.cbook import file_requires_unicode
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -135,7 +137,7 @@ def combineProteins(proteinList):
     protenlst = []
     for lst in proteinList:
         for protens in lst:
-            lst.append(protens)
+            protenlst.append(protens)
     return protenlst
 
 
@@ -162,7 +164,33 @@ Parameters: 2D list of strs ; 2D list of strs ; float
 Returns: 2D list of values
 '''
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
-    return
+    amnofreqlst =[]
+    totlcount1 = len(combineProteins(proteinList1))
+    totlcount2 = len(combineProteins(proteinList2))
+    word = combineProteins(proteinList1) 
+    word1 = combineProteins(proteinList2)
+    count = aminoAcidDictionary(word)
+    count1 = aminoAcidDictionary(word1)
+    totalwrd = word + word1
+    totalwrd = list(set(totalwrd))
+    for i in totalwrd:
+        freq1 = 0 
+        freq2 = 0
+        if i != "Start" and i != "Stop":
+            if i not in amnofreqlst:
+                if i in word and i in word1:
+                    freq1 = count[i]/totlcount1
+                    freq2 = count1[i]/totlcount2
+                elif i in word and i not in word1:
+                    freq1 = count[i]/totlcount1
+                    freq2 = 0
+                elif i not in word and i in word1:
+                    freq1 = 0 
+                    freq2 = count1[i]/totlcount2
+                freqdiff = freq1-freq2
+                if freqdiff > cutoff or freqdiff < -cutoff:
+                    amnofreqlst.append([i,freq1,freq2])
+    return amnofreqlst
 
 
 '''
@@ -258,9 +286,10 @@ if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     runWeek2()
     """
-    test.testCommonProteins()
+    # test.testCommonProteins()
     # test.testCombineProteins()
-    test.testAminoAcidDictionary()
+    # test.testAminoAcidDictionary()
+    test.testFindAminoAcidDifferences()
 
 
     ## Uncomment these for Week 3 ##
