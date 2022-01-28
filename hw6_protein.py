@@ -39,10 +39,8 @@ def dnaToRna(dna, startIndex):
     for word in range(startIndex,len(dna),3):
         dna = dna.replace("T","U")
         condns = dna[word:word+3]
-        if condns not in var:
-            condonslst.append(condns)
-        else:
-            condonslst.append(condns)
+        condonslst.append(condns)
+        if condns  in var:
             break
     return condonslst
 '''
@@ -212,7 +210,7 @@ def displayTextResults(commonalities, differences):
         if len(j) > 0:
             j = '-'.join(j)
             lst1.append(j)
-            lst1.sort()
+    lst1.sort()
     for k in lst1:
         strng += ' '+ k +"\n"
     print(strng)
@@ -249,7 +247,6 @@ def makeAminoAcidLabels(proteinList1, proteinList2):
             labels.append(i)
     totallabels = sorted(labels)
     return totallabels
-
 
 '''
 setupChartData(labels, proteinList)
